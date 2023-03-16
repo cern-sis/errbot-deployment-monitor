@@ -11,7 +11,7 @@ v1 = client.AppsV1Api()
 
 class Monitor(BotPlugin):
     @kopf.on.startup()
-    def configure(settings: kopf.OperatorSettings, **_):
+    def configure_kopf(self, settings: kopf.OperatorSettings, **_):
         print(settings)
         settings.posting.enabled = False
 
