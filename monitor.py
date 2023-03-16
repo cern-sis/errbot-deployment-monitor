@@ -11,7 +11,8 @@ v1 = client.AppsV1Api()
 
 class Monitor(BotPlugin):
     @kopf.on.startup()
-    def configure(self, settings: kopf.OperatorSettings, **_):
+    def configure(settings: kopf.OperatorSettings, **_):
+        print(settings)
         settings.posting.enabled = False
 
     def _prepare_message_for_deployment(
@@ -59,6 +60,6 @@ class Monitor(BotPlugin):
         max_unavailable = deployment.spec.strategy.rolling_update.max_unavailable
         replicas_unavailable = old - new
         if replicas_unavailable > max_unavailable:
-            _self.prepare_message_for_deployment(
+            self.prepare_message_for_deployment(
                 replicas_unavailable, deployment, **kwargs
             )
