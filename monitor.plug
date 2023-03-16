@@ -1,0 +1,10 @@
+[Core]
+name = monitor
+module = monitor
+
+[Documentation]
+description = A plugin to monitor deployment failures in kubernetes
+
+[Python]
+version = 3
+
