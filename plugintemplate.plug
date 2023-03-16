@@ -1,0 +1,10 @@
+[Core]
+name = PluginTemplate
+module = plugintemplate
+
+[Documentation]
+description = A simple plugin example 
+
+[Python]
+version = 3
+
