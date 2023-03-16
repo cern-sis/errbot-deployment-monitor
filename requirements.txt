@@ -1,3 +1,2 @@
-kubernetes
-kopf
-requests
+kubernetes==21.7.0
+kopf==1.35.3
