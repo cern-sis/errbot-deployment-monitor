@@ -12,7 +12,7 @@ v1 = client.AppsV1Api()
 class Monitor(BotPlugin):
     @kopf.on.startup()
     def configure_kopf(self, settings: kopf.OperatorSettings, **_):
-        print(settings)
+        self.log.info(settings)
         settings.posting.enabled = False
 
     def _prepare_message_for_deployment(
@@ -80,8 +80,10 @@ class Monitor(BotPlugin):
 
         self.log.info(response.status_code)
 
+    # send notification if the container restarts
     @kopf.on.event("v1", "pods")
     def container_restart_notification_handler(self, body, **kwargs):
+        self.log.info("container restarted")
         for container_status in body.status.container_statuses:
             if container_status.state.running and container_status.restart_count > 0:
                 container = next(
