@@ -62,8 +62,8 @@ class Monitor(BotPlugin):
                             """
         zulip_request_payload = {
             "type": "stream",
-            "to": namespace.split("-")[0],
-            "topic": namespace,
+            "to": "test",
+            "topic": "test",
             "content": zulip_msg_content,
         }
 
