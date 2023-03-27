@@ -12,6 +12,9 @@ v1 = client.AppsV1Api()
 class KopfHandler:
     def configure_kopf(self, settings: kopf.OperatorSettings, **_):
         print("kopf startup")
+        import ipdb
+
+        ipdb.set_trace
         settings.posting.enabled = False
 
 
