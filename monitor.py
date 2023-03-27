@@ -1,3 +1,4 @@
+import logging
 import os
 
 import kopf
@@ -12,8 +13,8 @@ v1 = client.AppsV1Api()
 class KopfHandler:
     def configure_kopf(self, settings: kopf.OperatorSettings, **_):
         settings.posting.enabled = True
-        print("kopf startup")
-        kopf.info([], "test", "test message")
+        self.logger = logging.getLogger(__name__)
+        self.logger.info("test message")
 
     def _prepare_message_for_deployment(
         self, replicas_unavailable, deployment, **kwargs
