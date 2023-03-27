@@ -9,17 +9,23 @@ config.load_incluster_config()
 v1 = client.AppsV1Api()
 
 
+class KopfHandler:
+    def configure_kopf(self, settings: kopf.OperatorSettings, **_):
+        print("kopf startup")
+        settings.posting.enabled = False
+
+
 class Monitor(BotPlugin):
     def activate(self):
         super().activate()
-        # register the startup function with kopf
-        kopf.register(self.configure_kopf, when="startup")
-        self.configure_kopf()
+        instance = KopfHandler()
+        kopf.on.startup()(instance.configure_kopf)
 
-    def configure_kopf(self):
-        self.log.info("kopf startup")
-        # self.log.info(settings)
-        # settings.posting.enabled = False
+    # @kopf.on.startup()
+    # def configure_kopf(self, settings: kopf.OperatorSettings, **_):
+    #     self.log.info("kopf startup")
+    #     self.log.info(settings)
+    #     settings.posting.enabled = False
 
     def _prepare_message_for_deployment(
         self, replicas_unavailable, deployment, **kwargs
