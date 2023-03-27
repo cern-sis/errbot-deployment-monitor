@@ -21,6 +21,7 @@ class KopfHandler:
 class Monitor(BotPlugin):
     def activate(self):
         super().activate()
+        self.log.info("activating plugin monitor")
         instance = KopfHandler()
         kopf.on.startup()(instance.configure_kopf)
 
