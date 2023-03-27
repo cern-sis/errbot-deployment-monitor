@@ -11,25 +11,9 @@ v1 = client.AppsV1Api()
 
 class KopfHandler:
     def configure_kopf(self, settings: kopf.OperatorSettings, **_):
+        settings.posting.enabled = True
         print("kopf startup")
-        import ipdb
-
-        ipdb.set_trace
-        settings.posting.enabled = False
-
-
-class Monitor(BotPlugin):
-    def activate(self):
-        super().activate()
-        self.log.info("activating plugin monitor")
-        instance = KopfHandler()
-        kopf.on.startup()(instance.configure_kopf)
-
-    # @kopf.on.startup()
-    # def configure_kopf(self, settings: kopf.OperatorSettings, **_):
-    #     self.log.info("kopf startup")
-    #     self.log.info(settings)
-    #     settings.posting.enabled = False
+        kopf.info([], "test", "test message")
 
     def _prepare_message_for_deployment(
         self, replicas_unavailable, deployment, **kwargs
@@ -129,3 +113,19 @@ class Monitor(BotPlugin):
             self.prepare_message_for_deployment(
                 replicas_unavailable, deployment, **kwargs
             )
+
+
+class Monitor(BotPlugin):
+    def activate(self):
+        super().activate()
+        self.log.info("activating plugin monitor")
+        instance = KopfHandler()
+        self.log.info("instance: ", instance)
+        kopf.on.startup()(instance.configure_kopf)
+        self.log.info("instance after startup: ", instance)
+
+    # @kopf.on.startup()
+    # def configure_kopf(self, settings: kopf.OperatorSettings, **_):
+    #     self.log.info("kopf startup")
+    #     self.log.info(settings)
+    #     settings.posting.enabled = False
