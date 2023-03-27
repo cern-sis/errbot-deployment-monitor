@@ -120,9 +120,8 @@ class Monitor(BotPlugin):
         super().activate()
         self.log.info("activating plugin monitor")
         instance = KopfHandler()
-        self.log.info("instance: ", instance)
         kopf.on.startup()(instance.configure_kopf)
-        self.log.info("instance after startup: ", instance)
+        self.log.info(instance)
 
     # @kopf.on.startup()
     # def configure_kopf(self, settings: kopf.OperatorSettings, **_):
